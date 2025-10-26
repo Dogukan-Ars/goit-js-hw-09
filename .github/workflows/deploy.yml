@@ -1,4 +1,4 @@
-name: Build and deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -7,24 +7,28 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout 🛎️
+      # 1. Repo’yu çek
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # 2. Node.js’i kur
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18'
 
-      - name: Install and build 🔧
+      # 3. Bağımlılıkları yükle ve build al
+      - name: Install dependencies and build
         run: |
-          npm install
+          npm ci
           npm run build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.2.0
+      # 4. GH Pages’a deploy
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.4.0
         with:
-          branch: gh-pages
-          folder: dist
-          clean: true
+          branch: gh-pages # GH Pages branch
+          folder: dist # Build çıktısı
+          clean: true # Önceki dosyaları temizle
+          token: ${{ secrets.GITHUB_TOKEN }} # Action token
