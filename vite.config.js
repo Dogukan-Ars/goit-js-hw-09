@@ -10,13 +10,15 @@ export default defineConfig(({ command }) => {
     define: {
       global: {},
     },
-    root: 'src',
     base: isBuild ? '/goit-js-hw-09/' : '/',
     publicDir: 'public',
+    root: 'src', // src içinde çalışacağız
     build: {
       sourcemap: true,
+      outDir: '../dist', // src üstüne çıkıp kök dizine dist oluştur
+      emptyOutDir: true,
       rollupOptions: {
-        input: glob.sync('./src/*.html'),
+        input: glob.sync('src/*.html'), // src içindeki tüm HTML dosyalarını al
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
@@ -37,12 +39,10 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      outDir: 'dist',
-      emptyOutDir: true,
     },
     plugins: [
       injectHTML(),
-      FullReload(['src/**/**.html']),
+      FullReload(['src/**/*.html']),
       SortCss({
         sort: 'mobile-first',
       }),
