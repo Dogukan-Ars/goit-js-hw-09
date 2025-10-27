@@ -10,7 +10,6 @@ export default defineConfig(({ command }) => {
       [command === 'serve' ? 'global' : '_global']: {},
     },
     root: 'src',
-    base: '/goit-js-hw-09/', // <-- GH Pages için eklendi
     build: {
       sourcemap: true,
       rollupOptions: {
