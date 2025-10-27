@@ -5,12 +5,14 @@ import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
 
 export default defineConfig(({ command }) => {
+  const isBuild = command === 'build';
   return {
     define: {
-      [command === 'serve' ? 'global' : '_global']: {},
+      global: {},
     },
     root: 'src',
-    base: '/goit-js-hw-09/',
+    base: isBuild ? '/goit-js-hw-09/' : '/',
+    publicDir: 'public',
     build: {
       sourcemap: true,
       rollupOptions: {
@@ -35,12 +37,12 @@ export default defineConfig(({ command }) => {
           },
         },
       },
-      outDir: '../dist',
+      outDir: 'dist',
       emptyOutDir: true,
     },
     plugins: [
       injectHTML(),
-      FullReload(['./src/**/**.html']),
+      FullReload(['src/**/**.html']),
       SortCss({
         sort: 'mobile-first',
       }),
