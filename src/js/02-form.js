@@ -1,7 +1,6 @@
 const STORAGE_KEY = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
 
-// Sayfa açıldığında formu localStorage'daki verilerle doldur
 window.addEventListener('load', () => {
   const savedData = localStorage.getItem(STORAGE_KEY);
   if (savedData) {
@@ -11,7 +10,6 @@ window.addEventListener('load', () => {
   }
 });
 
-// Formda input değiştiğinde localStorage’a kaydet
 form.addEventListener('input', () => {
   const data = {
     email: form.elements.email.value.trim(),
@@ -20,7 +18,6 @@ form.addEventListener('input', () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 });
 
-// Form gönderildiğinde
 form.addEventListener('submit', event => {
   event.preventDefault();
 
