@@ -12,13 +12,13 @@ export default defineConfig(({ command }) => {
     },
     base: isBuild ? '/goit-js-hw-09/' : '/',
     publicDir: 'public',
-    root: 'src', // src içinde çalışacağız
+    root: 'src',
     build: {
       sourcemap: true,
-      outDir: '../dist', // src üstüne çıkıp kök dizine dist oluştur
+      outDir: '../dist',
       emptyOutDir: true,
       rollupOptions: {
-        input: glob.sync('src/*.html'), // src içindeki tüm HTML dosyalarını al
+        input: glob.sync('src/*.html'),
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
